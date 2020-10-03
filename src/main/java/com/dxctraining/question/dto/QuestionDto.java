@@ -1,33 +1,23 @@
-package com.dxctraining.question.entity;
+package com.dxctraining.question.dto;
 
-import java.math.*;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-
-@Entity
-@Table(name="onlinetestquestions")
-public class Question {
-	@GeneratedValue
-	@Id
+public class QuestionDto {
+	
 	private BigInteger questionId;
-	//@ElementCollection
-	//private List<String> questionOptions;          /*changed to string type everywhere*/
-	private String questionOptions;
+	private String questionOptions; 
 	private String questionTitle;
 	private Integer questionAnswer;
 	private BigDecimal questionMarks;
 	private Integer chosenAnswer;
 	private BigDecimal marksScored;
 	
-	public Question(String questionOptions, String questionTitle, Integer questionAnswer,
+	public QuestionDto(BigInteger questionId,String questionOptions, String questionTitle, Integer questionAnswer,
 			BigDecimal questionMarks, Integer chosenAnswer, BigDecimal marksScored) {
 		
+		this.questionId = questionId;
 		this.questionOptions = questionOptions;
 		this.questionTitle = questionTitle;
 		this.questionAnswer = questionAnswer;
@@ -37,7 +27,7 @@ public class Question {
 		
 	}
 	
-	public Question() {
+	public QuestionDto() {
 		
 	}
 	
@@ -83,34 +73,5 @@ public class Question {
 	public void setMarksScored(BigDecimal marksScored) {
 		this.marksScored = marksScored;
 	}
-	@Override
-	public int hashCode() {
-		int id=questionId.intValue();       //typecasting bigint to int
-		
-		return id;
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Question other = (Question) obj;
-		if (questionId == null) {
-			if (other.questionId != null)
-				return false;
-		} else if (!questionId.equals(other.questionId))
-			return false;
-		return true;
-	}
-	
-	
-	
+
 }
-
-
-
-
-

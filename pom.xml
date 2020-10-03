@@ -2,12 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<parent>
+	
+	  <parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.3.4.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+	
 	<groupId>com.dxctraining.question</groupId>
 	<artifactId>question-project</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -17,6 +19,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		 <spring-cloud.version>Greenwich.SR1</spring-cloud.version>
 		<mysql-driver.version>8.0.21</mysql-driver.version>
 		<hsqldb.version>2.5.0</hsqldb.version>
 	</properties>
@@ -27,17 +30,18 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+	
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
 		</dependency>
-
+		  
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-
+	
 		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java 
 		<dependency>
 			<groupId>mysql</groupId>
@@ -52,7 +56,13 @@
 			<artifactId>hsqldb</artifactId> 
 			<version>${hsqldb.version}</version> 
 			</dependency> 
-
+		
+		<dependency> 
+		<groupId>org.hibernate</groupId> 
+		<artifactId>hibernate-entitymanager</artifactId>
+		 <version>5.2.3.Final</version> 
+		 </dependency>
+	
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -65,19 +75,20 @@
 			</exclusions>
 		</dependency>
 
-
+		
 		<!-- JSTL tag lib -->
 		<dependency>
 			<groupId>javax.servlet.jsp.jstl</groupId>
 			<artifactId>javax.servlet.jsp.jstl-api</artifactId>
 			<version>1.2.1</version>
 		</dependency>
-
+		
 		<dependency>
 			<groupId>taglibs</groupId>
 			<artifactId>standard</artifactId>
 			<version>1.1.2</version>
 		</dependency>
+		
 
 		<!-- Tomcat for JSP rendering -->
 		<dependency>
@@ -85,8 +96,8 @@
 			<artifactId>tomcat-embed-jasper</artifactId>
 			<scope>provided</scope>
 		</dependency>
-
-
+		
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
