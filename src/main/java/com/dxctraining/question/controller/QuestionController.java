@@ -24,7 +24,7 @@ import com.dxctraining.question.service.QuestionServiceImpl;
 import com.dxctraining.question.util.QuestionUtil;
 
 @RestController
-@RequestMapping("/question")
+@RequestMapping("/questions")
 @Validated
 public class QuestionController {
 
@@ -46,16 +46,16 @@ public class QuestionController {
 		Integer chosenAnswer=req.getChosenAnswer();
 		BigDecimal marksScored=req.getMarksScored();
 		
-		Question q=new Question(questionOptions,questionTitle,questionAnswer,questionMarks,chosenAnswer,marksScored);
-		q=service.addQuestion(q);
-		QuestionDto dto=util.questiondto(q);
+		Question question=new Question(questionOptions,questionTitle,questionAnswer,questionMarks,chosenAnswer,marksScored);
+		question=service.addQuestion(question);
+		QuestionDto dto=util.questiondto(question);
 		return dto;
 	}
 	
 	@GetMapping("/getQuestion/{id}")
 	public QuestionDto getquestion(@PathVariable("id") BigInteger id) {
-		Question q=service.getQuestionById(id);
-		QuestionDto dto=util.questiondto(q);
+		Question question=service.getQuestionById(id);
+		QuestionDto dto=util.questiondto(question);
 		return dto;
 	}
 	@DeleteMapping("/deletequestion/{id}")
@@ -66,8 +66,8 @@ public class QuestionController {
 	}
 	@GetMapping("/allquestions")
 	public List<Question> getAllQuestion(){
-		List<Question> q=service.getAllQuestions();
-		return q;
+		List<Question> question=service.getAllQuestions();
+		return question;
 	}
 	
 	@PutMapping("/update")

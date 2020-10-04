@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.dxctraining.question.dao.QuestionDao;
 import com.dxctraining.question.entity.Question;
-import com.dxctraining.question.exception.EmptyException;
+import com.dxctraining.question.exception.IdNotValidException;
 import com.dxctraining.question.exception.QuestionIdNotValidException;
 
 @Service
@@ -23,8 +23,8 @@ public class QuestionServiceImpl implements QuestionService{
 	public QuestionDao qdao;
 	
 	@Override
-	public Question addQuestion(Question q) {
-		Question question=qdao.save(q);
+	public Question addQuestion(Question newQuestion) {
+		Question question=qdao.save(newQuestion);
 		return question;
 	}
 
@@ -32,12 +32,12 @@ public class QuestionServiceImpl implements QuestionService{
 	public Question getQuestionById(BigInteger id) {
 		validation(id);
 		//int id1=id.intValue();
-		Optional<Question> op=qdao.findById(id);
-		boolean b=op.isPresent();
-		if(!b) {
-			throw new EmptyException("NULL");
+		Optional<Question> optional=qdao.findById(id);
+		boolean bool=optional.isPresent();
+		if(!bool) {
+			throw new IdNotValidException("Id is Not valid Enter a valid Id");
 		}
-		Question question=op.get();
+		Question question=optional.get();
 		return question;	
 	}
 	
@@ -67,20 +67,20 @@ public class QuestionServiceImpl implements QuestionService{
 	@Override
 	public Question updateQuestion(BigInteger questionId,String questionOptions, String questionTitle, Integer questionAnswer,
 			BigDecimal questionMarks, Integer chosenAnswer, BigDecimal marksScored) {
-		Question q=getQuestionById(questionId);          //before updating
-		q.setQuestionOptions(questionOptions);
-		q.setQuestionTitle(questionTitle);
-		q.setQuestionAnswer(questionAnswer);
-		q.setQuestionMarks(questionMarks);
-		q.setChosenAnswer(chosenAnswer);
-		q.setMarksScored(marksScored);
-		Question question=getQuestionById(questionId);   //after updating
-		return question;
+		Question question=getQuestionById(questionId);          //before updating
+		question.setQuestionOptions(questionOptions);
+		question.setQuestionTitle(questionTitle);
+		question.setQuestionAnswer(questionAnswer);
+		question.setQuestionMarks(questionMarks);
+		question.setChosenAnswer(chosenAnswer);
+		question.setMarksScored(marksScored);
+		Question updatedQuestion=getQuestionById(questionId);   //after updating
+		return updatedQuestion;
 	}
-	public void validation(BigInteger ob) {
-		int id=ob.intValue();
+	public void validation(BigInteger questionId) {
+		int id=questionId.intValue();
 		if(id<=0) {
-			throw new QuestionIdNotValidException("Id is not valid");
+			throw new QuestionIdNotValidException("Id is not valid, enter a id greater than 0");
 		}
 		
 	}

@@ -85,9 +85,11 @@ public class Question {
 	}
 	@Override
 	public int hashCode() {
-		int id=questionId.intValue();       //typecasting bigint to int
-		
-		return id;
+		//final int prime = 31;
+		//int result = 1;
+		//result = prime * result + ((questionId == null) ? 0 : questionId.hashCode());
+		int result=questionId.hashCode();
+		return result;
 	}
 	@Override
 	public boolean equals(Object obj) {
