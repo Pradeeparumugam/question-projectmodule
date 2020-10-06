@@ -14,7 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.dxctraining.question.dao.QuestionDao;
 import com.dxctraining.question.entity.Question;
 import com.dxctraining.question.exception.IdNotValidException;
+import com.dxctraining.question.exception.QuestionAlreadyExistsException;
 import com.dxctraining.question.exception.QuestionIdNotValidException;
+import com.dxctraining.question.exception.QuestionNotFoundException;
 
 @Service
 @Transactional
@@ -24,6 +26,7 @@ public class QuestionServiceImpl implements QuestionService{
 	
 	@Override
 	public Question addQuestion(Question newQuestion) {
+		
 		Question question=qdao.save(newQuestion);
 		return question;
 	}
@@ -32,6 +35,7 @@ public class QuestionServiceImpl implements QuestionService{
 	public Question getQuestionById(BigInteger id) {
 		validation(id);
 		//int id1=id.intValue();
+		
 		Optional<Question> optional=qdao.findById(id);
 		boolean bool=optional.isPresent();
 		if(!bool) {
@@ -47,10 +51,13 @@ public class QuestionServiceImpl implements QuestionService{
 		return question;
 	}
 	@Override
-	public void deleteQuestionById(BigInteger id) {
-		validation(id);
+	public void deleteQuestionById(BigInteger questionId) {
+		validation(questionId);
+		if(!qdao.existsById(questionId)) {
+			throw new QuestionNotFoundException("Question with id : ["+questionId+"] Not Found"); 
+		}
 		//int id1=id.intValue();
-		qdao.deleteById(id);
+		qdao.deleteById(questionId);
 	}
 	/*@Override
 	public Question updateQuestion(Question newquestion) {

@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -37,8 +40,8 @@ public class QuestionController {
 	
 	@PostMapping("/addquestion")
 	@ResponseStatus(HttpStatus.ACCEPTED)
-	public QuestionDto addquestion(@RequestBody CreateRequest req) {
-		
+	public QuestionDto addquestion(@Valid @RequestBody CreateRequest req) {
+		@NotBlank
 		String questionOptions=req.getQuestionOptions(); 
 		String questionTitle=req.getQuestionTitle();
 		Integer questionAnswer=req.getQuestionAnswer();
